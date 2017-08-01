@@ -1,0 +1,52 @@
+Usage:
+
+    %1$s [--version] [--help] <command>
+
+Commands:
+
+    list [<criteria>]          List articles matching <criteria>. This command
+                               doesn't modify any articles.
+
+    favorite   [<criteria>]    Favorite articles matching <criteria>.
+    unfavorite [<criteria>]    Unfavorite articles matching <criteria>.
+
+    archive   [<criteria>]     Archive articles matching <criteria>.
+    unarchive [<criteria>]     Unarchive articles matching <criteria>.
+
+    delete [<criteria>]        Delete articles matching <criteria>.
+
+    auth <consumer-key>        Create a private access token.  Your key-token
+                               pair will be stored in '~/.pocket-tool' and used
+                               for subsequent calls to the Pocket API. To get a
+                               consumer key, follow the instructions at
+                               https://getpocket.com/developer/apps/new
+
+Criteria:
+
+    These options are used to limit a command to only act on certain articles.
+    Only articles that match every given criteria are acted on.
+
+    -t --with-tag    <tag>     Match articles with <tag>.
+    -T --without-tag <tag>     Do not match articles with <tag>.
+
+    -a --archived              Match archived articles.
+    -A --not-archived          Match articles in "My List" (articles that aren't
+                               archived).
+
+    If --archived/--not-archived is not used, both archived and not archived
+    articles are matched.
+
+    -f --favorited             Match favorited articles.
+    -F --not-favorited         Match articles that aren't favorited.
+
+    If --favorited/--not-favorited is not used, both favorited and non favorited
+    articles are matched.
+
+    -b --before <YYYY-MM-DD>   Match articles added before <YYYY-MM-DD>.
+    -s --since  <YYYY-MM-DD>   Match articles added since <YYYY-MM-DD>.
+
+Examples:
+
+    Archive each article tagged with both 'ifttt' and 'nyt', but not 'politics':
+
+        %1$s archive -t foo -t bar -T politics
