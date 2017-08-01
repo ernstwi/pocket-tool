@@ -51,7 +51,10 @@ static void read_key_token(void) {
 }
 
 static void usage(FILE *f, char *name) {
-    fprintf(f, (const char *) usage_txt, name);
+    char usage_txt_nul_term[usage_txt_len + 1];
+    memcpy(usage_txt_nul_term, usage_txt, usage_txt_len);
+    usage_txt_nul_term[usage_txt_len] = '\0';
+    fprintf(f, usage_txt_nul_term, name);
 }
 
 static void version(void) {
