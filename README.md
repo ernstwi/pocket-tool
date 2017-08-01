@@ -57,7 +57,13 @@ Examples:
         pocket-tool archive -t foo -t bar -T politics
 ```
 
-## Installation
+## Install with [Homebrew](https://brew.sh)
+
+```
+$ brew install ernstwi/tap/pocket-tool
+```
+
+## Install manually
 
 1. Clone this repo.
 2. Clone [zserge/jsmn](https://github.com/zserge/jsmn).
@@ -67,6 +73,8 @@ Examples:
 6. `cd` into `pocket-tool`.
 7. Run `make`.
 8. Run `make install` to move the built binary to `/usr/local/pocket-tool`.
+
+## Authenticate
 
 Before you can use `pocket-tool`, you must [create a Pocket consumer key](https://getpocket.com/developer/apps/new), and authenticate the app by running `pocket-tool auth <consumer-key>`. This will create a private access token, which is stored along with your consumer key in `~/.pocket-tool`.
 
