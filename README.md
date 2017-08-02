@@ -68,7 +68,7 @@ $ brew install ernstwi/tap/pocket-tool
 1. Clone this repo.
 2. Clone [zserge/jsmn](https://github.com/zserge/jsmn).
 3. `cd` into the jsmn directory.
-4. Run `make`.
+4. Run `make CFLAGS=-DJSMN_PARENT_LINKS`.
 5. Copy the files `jsmn.h` and `libjsmn.a` to the `pocket-tool` directory created in step 1.
 6. `cd` into `pocket-tool`.
 7. Run `make`.
