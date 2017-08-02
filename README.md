@@ -72,7 +72,7 @@ $ brew install ernstwi/tap/pocket-tool
 5. Copy the files `jsmn.h` and `libjsmn.a` to the `pocket-tool` directory created in step 1.
 6. `cd` into `pocket-tool`.
 7. Run `make`.
-8. Run `make install` to move the built binary to `/usr/local/pocket-tool`.
+8. Run `make install` to move the built binary to `/usr/local/bin/pocket-tool`.
 
 ## Authenticate
 
