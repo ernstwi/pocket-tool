@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 #define ARTICLES_PER_REQUEST 100
-#define VERSION_NO "1.0.0"
+#define VERSION_NO "1.0.1"
 
 #define SNPRINTF(buf, size, offs, ...)\
     {\
