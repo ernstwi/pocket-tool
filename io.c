@@ -1,10 +1,9 @@
 #include "main.h"
 
 static void print_without_backslashes(char *cp) {
-    while(*cp) {
-        if (*cp != '\\') {
+    while (*cp) {
+        if (*cp != '\\')
             putchar(*cp);
-        }
         cp++;
     }
 }
