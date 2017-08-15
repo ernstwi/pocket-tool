@@ -215,6 +215,11 @@ static void parse_command(int argc, char *argv[]) {
 #endif
 }
 
+static void free_unless_null(void *ptr) {
+    if (ptr != NULL)
+        free(ptr);
+}
+
 static void free_articles(article_t *articles, int num_articles) {
     for (int i = 0; i < num_articles; i++) {
         article_t a = articles[i];
@@ -223,10 +228,10 @@ static void free_articles(article_t *articles, int num_articles) {
             free(a.tags[j]);
         }
 
-        free(a.tags);
-        free(a.url);
-        free(a.id);
-        free(a.title);
+        free_unless_null(a.tags);
+        free_unless_null(a.url);
+        free_unless_null(a.id);
+        free_unless_null(a.title);
     }
 }
 

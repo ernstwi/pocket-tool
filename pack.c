@@ -9,6 +9,17 @@ static int jsmn_strcmp(jsmntok_t t, char *str, char *json) {
     }
 }
 
+static char *consume_string(jsmntok_t token, char *json) {
+    assert(token.type == JSMN_STRING);
+
+    // Treat empty strings as non-existent.
+    if (token.end == token.start)
+        return NULL;
+
+    json[token.end] = '\0';
+    return strdup(json + token.start);
+}
+
 static char **consume_tags(jsmntok_t *tokens, char *json, int pi, int t_offs) {
     int i = t_offs;
     int ti = 0;
@@ -26,6 +37,7 @@ static char **consume_tags(jsmntok_t *tokens, char *json, int pi, int t_offs) {
 
 static article_t consume_article(jsmntok_t *tokens, char *json, int pi, int t_offs) {
     article_t a;
+    a.url      = NULL;
     a.id       = NULL;
     a.title    = NULL;
     a.num_tags = 0;
@@ -51,20 +63,20 @@ static article_t consume_article(jsmntok_t *tokens, char *json, int pi, int t_of
         int i = t_offs;
         while (tokens[i].end < tokens[pi].end) {
             if (tokens[i].parent == pi) {
-                if (jsmn_strcmp(tokens[i], "resolved_url", json) == 0) {
-                    assert(tokens[i].size = 1);
-                    json[tokens[i+1].end] = '\0';
-                    a.url = strdup(json + tokens[i+1].start);
-                } else if (jsmn_strcmp(tokens[i], "item_id", json) == 0) {
-                    assert(tokens[i].size = 1);
-                    json[tokens[i+1].end] = '\0';
-                    a.id = strdup(json + tokens[i+1].start);
-                } else if (jsmn_strcmp(tokens[i], "resolved_title", json) == 0) {
-                    assert(tokens[i].size = 1);
-                    json[tokens[i+1].end] = '\0';
-                    a.title = strdup(json + tokens[i+1].start);
-                } else if (jsmn_strcmp(tokens[i], "tags", json) == 0) {
-                    assert(tokens[i].size = 1);
+                if (jsmn_strcmp(tokens[i], "item_id", json) == 0)
+                    a.id = consume_string(tokens[i+1], json);
+
+                else if (jsmn_strcmp(tokens[i], "resolved_url", json) == 0)
+                    a.url = consume_string(tokens[i+1], json);
+                else if (jsmn_strcmp(tokens[i], "given_url", json) == 0 && a.url == NULL)
+                    a.url = consume_string(tokens[i+1], json);
+
+                else if (jsmn_strcmp(tokens[i], "resolved_title", json) == 0)
+                    a.title = consume_string(tokens[i+1], json);
+                else if (jsmn_strcmp(tokens[i], "given_title", json) == 0 && a.title == NULL)
+                    a.title = consume_string(tokens[i+1], json);
+
+                else if (jsmn_strcmp(tokens[i], "tags", json) == 0) {
                     a.num_tags = tokens[i+1].size;
                     a.tags = consume_tags(tokens, json, i+1, i+2);
                 }

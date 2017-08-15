@@ -56,6 +56,12 @@ void print_result(action_t action, int mod_articles, article_t *articles,
     for (int i = 0; i < num_articles; i++) {
         if (articles[i].match) {
             printf("* ");
+            // If there's no title, print the URL.
+            if (articles[i].title == NULL) {
+                print_without_backslashes(articles[i].url);
+                printf("\n");
+                continue;
+            }
 
             inbuf = articles[i].title;
             inbuf_len = strlen(inbuf);
@@ -70,14 +76,9 @@ void print_result(action_t action, int mod_articles, article_t *articles,
 
             iconv(cd, &inbuf_end, &inbuf_len, &outbuf_end, &outbuf_len);
             assert(inbuf_len == 0); // There are no bytes left to convert.
+            *outbuf_end = '\0';
 
-            // If there's no title, print the URL.
-            if (outbuf_end == outbuf) {
-                print_without_backslashes(articles[i].url);
-            } else {
-                *outbuf_end = '\0';
-                print_without_backslashes(outbuf);
-            }
+            print_without_backslashes(outbuf);
             printf("\n");
 
             free(outbuf);
