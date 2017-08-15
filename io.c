@@ -54,35 +54,36 @@ void print_result(action_t action, int mod_articles, article_t *articles,
     size_t outbuf_len;
 
     for (int i = 0; i < num_articles; i++) {
-        if (articles[i].match) {
-            printf("* ");
-            // If there's no title, print the URL.
-            if (articles[i].title == NULL) {
-                print_without_backslashes(articles[i].url);
-                printf("\n");
-                continue;
-            }
+        if (!articles[i].match)
+            continue;
 
-            inbuf = articles[i].title;
-            inbuf_len = strlen(inbuf);
-
-            outbuf_len = inbuf_len * 4; // A UTF-8 encoded code point is at most
-            // 4 bytes in size, and each character (byte) in the input string
-            // equals at most one code point.
-            outbuf = malloc(outbuf_len + 1); // Add one for termination byte.
-
-            inbuf_end = inbuf;
-            outbuf_end = outbuf;
-
-            iconv(cd, &inbuf_end, &inbuf_len, &outbuf_end, &outbuf_len);
-            assert(inbuf_len == 0); // There are no bytes left to convert.
-            *outbuf_end = '\0';
-
-            print_without_backslashes(outbuf);
+        printf("* ");
+        // If there's no title, print the URL.
+        if (articles[i].title == NULL) {
+            print_without_backslashes(articles[i].url);
             printf("\n");
-
-            free(outbuf);
+            continue;
         }
+
+        inbuf = articles[i].title;
+        inbuf_len = strlen(inbuf);
+
+        outbuf_len = inbuf_len * 4; // A UTF-8 encoded code point is at most
+        // 4 bytes in size, and each character (byte) in the input string
+        // equals at most one code point.
+        outbuf = malloc(outbuf_len + 1); // Add one for termination byte.
+
+        inbuf_end = inbuf;
+        outbuf_end = outbuf;
+
+        iconv(cd, &inbuf_end, &inbuf_len, &outbuf_end, &outbuf_len);
+        assert(inbuf_len == 0); // There are no bytes left to convert.
+        *outbuf_end = '\0';
+
+        print_without_backslashes(outbuf);
+        printf("\n");
+
+        free(outbuf);
     }
     iconv_close(cd);
 }

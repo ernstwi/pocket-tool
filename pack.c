@@ -1,11 +1,11 @@
 #include "main.h"
 
-static int jsmn_strcmp(jsmntok_t t, char *str, char *json) {
-    if (t.type != JSMN_STRING) {
+static int jsmn_strcmp(jsmntok_t token, char *str, char *json) {
+    if (token.type != JSMN_STRING) {
         return -1;
     } else {
-        json[t.end] = '\0';
-        return strcmp(json + t.start, str);
+        json[token.end] = '\0';
+        return strcmp(json + token.start, str);
     }
 }
 
@@ -68,12 +68,14 @@ static article_t consume_article(jsmntok_t *tokens, char *json, int pi, int t_of
 
                 else if (jsmn_strcmp(tokens[i], "resolved_url", json) == 0)
                     a.url = consume_string(tokens[i+1], json);
-                else if (jsmn_strcmp(tokens[i], "given_url", json) == 0 && a.url == NULL)
+                else if (jsmn_strcmp(tokens[i], "given_url", json) == 0 &&
+                    a.url == NULL)
                     a.url = consume_string(tokens[i+1], json);
 
                 else if (jsmn_strcmp(tokens[i], "resolved_title", json) == 0)
                     a.title = consume_string(tokens[i+1], json);
-                else if (jsmn_strcmp(tokens[i], "given_title", json) == 0 && a.title == NULL)
+                else if (jsmn_strcmp(tokens[i], "given_title", json) == 0 &&
+                    a.title == NULL)
                     a.title = consume_string(tokens[i+1], json);
 
                 else if (jsmn_strcmp(tokens[i], "tags", json) == 0) {
@@ -88,7 +90,8 @@ static article_t consume_article(jsmntok_t *tokens, char *json, int pi, int t_of
     return a;
 }
 
-static int consume_list(jsmntok_t *tokens, char *json, int pi, int t_offs, article_t **out) {
+static int consume_list(jsmntok_t *tokens, char *json, int pi, int t_offs,
+    article_t **out) {
     int num_articles_max = tokens[pi].size;
     article_t *articles = malloc(num_articles_max * sizeof(article_t));
 

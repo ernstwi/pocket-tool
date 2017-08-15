@@ -113,7 +113,7 @@ void auth(char *key, char *name) {
     char *access_token = malloc(token_len + 1);
     char *username = malloc(username_len + 1);
     char *formatstring;
-    
+
     asprintf(&formatstring, "access_token=%%%ds&username=%%%ds", token_len,
         username_len);
     sscanf(atu, formatstring, access_token, username);
