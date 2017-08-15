@@ -46,7 +46,7 @@ void print_result(action_t action, int mod_articles, article_t *articles,
     iconv_t cd = iconv_open("UTF-8", "C99");
 
     char *inbuf;      // ← Will always point to first byte of input string.
-    char *inbuf_end;  // ← Will after converion point to the byte after the last
+    char *inbuf_end;  // ← Will after conversion point to the byte after the last
     size_t inbuf_len; //   byte used in the conversion.
 
     char *outbuf;
