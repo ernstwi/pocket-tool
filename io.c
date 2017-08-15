@@ -86,21 +86,4 @@ void print_result(action_t action, int mod_articles, article_t *articles,
     iconv_close(cd);
 }
 
-#ifdef DEBUG
-void save_json(char *json) {
-    FILE *existing = fopen("response.json", "r");
-    if (existing != NULL) {
-        printf("Overwrite response.json? [y/n]\n");
-        char c = '\0';
-        while (c != 'y' && c != 'n') {
-            c = getchar();
-            if (c == 'n') {
-                return;
-            }
-        }
-    }
 
-    FILE *f = fopen("response.json", "w");
-    fwrite(json, sizeof(char), strlen(json), f);
-}
-#endif

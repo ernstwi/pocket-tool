@@ -101,7 +101,7 @@ static char *request(state_t state, int favorited, time_t since) {
 int pull(state_t state, int favorited, time_t since, article_t **articles) {
     char *json = request(state, favorited, since);
 #ifdef DEBUG
-    save_json(json);
+    LOG_JSON("%s\n", json);
 #endif
     jsmntok_t *tokens = parse(json);
     int num_articles = pack(tokens, json, articles);

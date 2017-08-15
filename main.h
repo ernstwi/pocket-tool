@@ -13,6 +13,9 @@
 #define ARTICLES_PER_REQUEST 100
 #define VERSION_NO "1.0.1"
 
+#define LOG(...) FILE *f = fopen("/var/tmp/pocket-tool_log.txt", "a"); fprintf(f, __VA_ARGS__); fclose(f);
+#define LOG_JSON(...) FILE *f = fopen("/var/tmp/pocket-tool_response.json", "a"); fprintf(f, __VA_ARGS__); fclose(f);
+
 #define SNPRINTF(buf, size, offs, ...)\
     {\
         int res = snprintf(buf + offs, size - offs, __VA_ARGS__);\
@@ -62,10 +65,6 @@ void    Curl_easy_perform(CURL *);
 void    push(action_t, article_t *, int);
 void    print_result(action_t, int, article_t *, int);
 size_t  callback(void *, size_t, size_t, void *);
-
-#ifdef DEBUG
-void save_json(char *);
-#endif
 
 #ifdef TEST
 void    test(void);
