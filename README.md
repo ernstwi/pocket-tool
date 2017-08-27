@@ -54,7 +54,7 @@ Examples:
 
     Archive each article tagged with both 'ifttt' and 'nyt', but not 'politics':
 
-        pocket-tool archive -t foo -t bar -T politics
+        pocket-tool archive -t ifttt -t nyt -T politics
 ```
 
 ## Install with [Homebrew](https://brew.sh)

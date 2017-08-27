@@ -49,4 +49,4 @@ Examples:
 
     Archive each article tagged with both 'ifttt' and 'nyt', but not 'politics':
 
-        %1$s archive -t foo -t bar -T politics
+        %1$s archive -t ifttt -t nyt -T politics
