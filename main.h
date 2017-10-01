@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 #define ARTICLES_PER_REQUEST 100
-#define VERSION_NO "1.0.2"
+#define VERSION_NO "1.1.0"
 
 #define LOG(...) FILE *f = fopen("/var/tmp/pocket-tool_log.txt", "a"); fprintf(f, __VA_ARGS__); fclose(f);
 #define LOG_JSON(...) FILE *f = fopen("/var/tmp/pocket-tool_response.json", "a"); fprintf(f, __VA_ARGS__); fclose(f);
