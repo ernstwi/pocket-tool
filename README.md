@@ -5,7 +5,7 @@ Archive, delete, or favorite multiple articles in your [Pocket](https://getpocke
 ```
 Usage:
 
-    pocket-tool [--version] [--help] <command>
+    pocket-tool [--version] [--help] [--quiet] <command>
 
 Commands:
 

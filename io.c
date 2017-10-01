@@ -9,7 +9,7 @@ static void print_without_backslashes(char *cp) {
 }
 
 void print_result(action_t action, int mod_articles, article_t *articles,
-    int num_articles) {
+    int num_articles, int quiet) {
     char *action_str;
     switch (action) {
         case FAVORITE:
@@ -38,8 +38,10 @@ void print_result(action_t action, int mod_articles, article_t *articles,
     }
     printf("%s%d %s%c\n", action_str, mod_articles,
         mod_articles == 1 ? "article" : "articles",
-        mod_articles == 0 ? '.' : ':');
+        quiet || mod_articles == 0 ? '.' : ':');
 
+    if (quiet || mod_articles == 0)
+        return;
 
     // I use iconv to turn so called universal character names like "\u2019"
     // into their corresponding Unicode code points encoded in UTF-8.
