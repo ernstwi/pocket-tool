@@ -1,13 +1,13 @@
 #include "main.h"
 
 void Curl_easy_perform(CURL *handle) {
-    char *err = malloc(CURL_ERROR_SIZE); err = NULL;
+    char *err = malloc(CURL_ERROR_SIZE); err[0] = '\0';
     curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, err);
 
     CURLcode res = curl_easy_perform(handle);
     if (res != CURLE_OK) {
         fprintf(stderr, "%s: \x1b[31mError\x1b[0m: %s\n", argv_0, err != NULL ? err :
-            "Unknown error");
+            "Unknown cURL error");
         exit(1);
     }
     free(err);
