@@ -1,61 +1,169 @@
 # pocket-tool
 
-Archive, delete, or favorite multiple articles in your [Pocket](https://getpocket.com) list at once based on their tags and/or added date.
+List, archive, delete, or favorite multiple articles in your [Pocket](https://getpocket.com) list at once based on their tags and/or added date.
 
-```
-Usage:
+## Examples
 
-    pocket-tool [--version] [--help] [--quiet] <command>
+List all articles added since 2018-04-08:  
+`pocket-tool list --since 2018-04-08`
 
-Commands:
+Archive each article tagged with both "ifttt" and "nyt", but not "politics":  
+`pocket-tool archive -t ifttt -t nyt -T politics`
 
-    list [<criteria>]          List articles matching <criteria>. This command
-                               doesn't modify any articles.
+Delete all articles added more than 4 days ago:  
+`date -v-4d +%Y-%m-%d | xargs -IX pocket-tool delete --before X`
 
-    favorite   [<criteria>]    Favorite articles matching <criteria>.
-    unfavorite [<criteria>]    Unfavorite articles matching <criteria>.
+Favorite all archived articles without the tag "ifttt":  
+`pocket-tool favorite --archived --without-tag ifttt`
 
-    archive   [<criteria>]     Archive articles matching <criteria>.
-    unarchive [<criteria>]     Unarchive articles matching <criteria>.
+## Usage
 
-    delete [<criteria>]        Delete articles matching <criteria>.
+`pocket-tool [--version] [--help] <command> [<options>]`
 
-    auth <consumer-key>        Create a private access token.  Your key-token
-                               pair will be stored in '~/.pocket-tool' and used
-                               for subsequent calls to the Pocket API. To get a
-                               consumer key, follow the instructions at
-                               https://getpocket.com/developer/apps/new
+### Options
 
-Criteria:
+<table>
+<tbody><tr>
+<td>
+<code>-q --quiet</code>
+</td>
+<td>
+Don’t print article list.
+</td>
+</tr>
+<tr>
+<td>
+<code>-m --markdown</code>
+</td>
+<td>
+Print articles as links in a Markdown list format.
+</td>
+</tr>
+</tbody></table>
 
-    These options are used to limit a command to only act on certain articles.
-    Only articles that match every given criteria are acted on.
+### Commands
 
-    -t --with-tag    <tag>     Match articles with <tag>.
-    -T --without-tag <tag>     Do not match articles with <tag>.
+<table>
+<tbody><tr>
+<td>
+<code>list [&lt;criteria&gt;]</code>
+</td>
+<td>
+List articles matching <code>&lt;criteria&gt;</code>. This command doesn’t modify any articles.
+</td>
+</tr>
+<tr>
+<td>
+<code>favorite   [&lt;criteria&gt;]</code><br>
+<code>unfavorite [&lt;criteria&gt;]</code>
+</td>
+<td>
+Favorite or unfavorite articles matching <code>&lt;criteria&gt;</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>archive   [&lt;criteria&gt;]</code><br>
+<code>unarchive [&lt;criteria&gt;]</code>
+</td>
+<td>
+Archive or unarchive articles matching <code>&lt;criteria&gt;</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>delete [&lt;criteria&gt;]</code>
+</td>
+<td>
+Delete articles matching <code>&lt;criteria&gt;</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>auth &lt;consumer-key&gt;</code>
+</td>
+<td>
+See <a href="#authentication">Authentication</a>.
+</td>
+</tr>
+</tbody></table>
 
-    -a --archived              Match archived articles.
-    -A --not-archived          Match articles in "My List" (articles that aren't
-                               archived).
+### Criteria
 
-    If --archived/--not-archived is not used, both archived and not archived
-    articles are matched.
+These options are used to limit a command to only act on certain articles. Only articles that match every given criteria are acted on.
 
-    -f --favorited             Match favorited articles.
-    -F --not-favorited         Match articles that aren't favorited.
+<table>
+<tbody><tr>
+<td>
+<code>-t --with-tag &lt;tag&gt;</code>
+</td>
+<td>
+Match articles with <code>&lt;tag&gt;</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>-T --without-tag &lt;tag&gt;</code>
+</td>
+<td>
+Do not match articles with <code>&lt;tag&gt;</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>-a --archived</code>
+</td>
+<td>
+Match archived articles.
+</td>
+</tr>
+<tr>
+<td>
+<code>-A --not-archived</code>
+</td>
+<td>
+Match articles in “My List” (articles that aren’t archived).
+</td>
+</tr>
+<tr>
+<td>
+<code>-f --favorited</code>
+</td>
+<td>
+Match favorited articles.
+</td>
+</tr>
+<tr>
+<td>
+<code>-F --not-favorited</code>
+</td>
+<td>
+Match articles that aren’t favorited.
+</td>
+</tr>
+<tr>
+<td>
+<code>-b --before &lt;YYYY-MM-DD&gt;</code>
+</td>
+<td>
+Match articles added before <code>&lt;YYYY-MM-DD&gt;</code>.
+</td>
+</tr>
+<tr>
+<td>
+<code>-s --since  &lt;YYYY-MM-DD&gt;</code>
+</td>
+<td>
+Match articles added since <code>&lt;YYYY-MM-DD&gt;</code>.
+</td>
+</tr>
+</tbody></table>
 
-    If --favorited/--not-favorited is not used, both favorited and non favorited
-    articles are matched.
+If `--archived`/`--not-archived` is not used, both archived and not archived
+articles are matched.
 
-    -b --before <YYYY-MM-DD>   Match articles added before <YYYY-MM-DD>.
-    -s --since  <YYYY-MM-DD>   Match articles added since <YYYY-MM-DD>.
-
-Examples:
-
-    Archive each article tagged with both 'ifttt' and 'nyt', but not 'politics':
-
-        pocket-tool archive -t ifttt -t nyt -T politics
-```
+If `--favorited`/`--not-favorited` is not used, both favorited and non favorited
+articles are matched.
 
 ## Install with [Homebrew](https://brew.sh)
 
@@ -74,7 +182,7 @@ $ brew install ernstwi/tap/pocket-tool
 7. Run `make`.
 8. Run `make install` to move the built binary to `/usr/local/bin/pocket-tool`.
 
-## Authenticate
+## Authentication
 
 Before you can use `pocket-tool`, you must [create a Pocket consumer key](https://getpocket.com/developer/apps/new), and authenticate the app by running `pocket-tool auth <consumer-key>`. This will create a private access token, which is stored along with your consumer key in `~/.pocket-tool`.
 
