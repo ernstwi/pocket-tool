@@ -159,11 +159,9 @@ Match articles added since <code>&lt;YYYY-MM-DD&gt;</code>.
 </tr>
 </tbody></table>
 
-If `--archived`/`--not-archived` is not used, both archived and not archived
-articles are matched.
+If `--archived`/`--not-archived` is not used, both archived and not archived articles are matched.
 
-If `--favorited`/`--not-favorited` is not used, both favorited and non favorited
-articles are matched.
+If `--favorited`/`--not-favorited` is not used, both favorited and non favorited articles are matched.
 
 ## Install with [Homebrew](https://brew.sh)
 
