@@ -63,7 +63,7 @@ int     pack(jsmntok_t *, char *, article_t **);
 int     pull(state_t, int, time_t, article_t **);
 void    Curl_easy_perform(CURL *);
 void    push(action_t, article_t *, int);
-void    print_result(action_t, int, article_t *, int, int);
+void    print_result(action_t, int, article_t *, int, int, int);
 size_t  callback(void *, size_t, size_t, void *);
 
 #ifdef TEST

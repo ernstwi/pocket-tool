@@ -17,6 +17,7 @@ int  without_tags_len = 0;
 time_t before_date = 0;
 time_t since_date = 0;
 int quiet = 0;
+int markdown = 0;
 
 static void read_key_token(void) {
     char *abs_path = home(".pocket-tool");
@@ -130,6 +131,7 @@ static void parse_command(int argc, char *argv[]) {
         { "before",         required_argument,  0,  'b' },
         { "since",          required_argument,  0,  's' },
         { "quiet",          no_argument,        0,  'q' },
+        { "markdown",       no_argument,        0,  'm' },
         { 0, 0, 0, 0 }
     };
 
@@ -138,7 +140,7 @@ static void parse_command(int argc, char *argv[]) {
     struct tm tm_before;
     struct tm tm_since;
 
-    while ((c = getopt_long(argc, argv, "vht:T:aAfFb:s:q", longopts, &option_index)) != -1)
+    while ((c = getopt_long(argc, argv, "vht:T:aAfFb:s:qm", longopts, &option_index)) != -1)
         switch (c)
         {
             case 'v':
@@ -203,6 +205,9 @@ static void parse_command(int argc, char *argv[]) {
                 break;
             case 'q':
                 quiet = 1;
+                break;
+            case 'm':
+                markdown = 1;
                 break;
             default:
                 // 'getopt_long()' will have already printed an error message.
@@ -284,7 +289,7 @@ int main(int argc, char *argv[]) {
     if (action != LIST)
         push(action, articles, num_articles);
 
-    print_result(action, mod_articles, articles, num_articles, quiet);
+    print_result(action, mod_articles, articles, num_articles, quiet, markdown);
 
     free_articles(articles, num_articles);
     free(key);

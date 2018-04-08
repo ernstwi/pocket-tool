@@ -9,7 +9,7 @@ static void print_without_backslashes(char *cp) {
 }
 
 void print_result(action_t action, int mod_articles, article_t *articles,
-    int num_articles, int quiet) {
+    int num_articles, int quiet, int markdown) {
     char *action_str;
     switch (action) {
         case FAVORITE:
@@ -60,10 +60,18 @@ void print_result(action_t action, int mod_articles, article_t *articles,
             continue;
 
         printf("* ");
-        // If there's no title, print the URL.
+        // If there's no title, print just the URL.
         if (articles[i].title == NULL) {
-            print_without_backslashes(articles[i].url);
-            printf("\n");
+            if (markdown) {
+                printf("[");
+                print_without_backslashes(articles[i].url);
+                printf("](");
+                print_without_backslashes(articles[i].url);
+                printf(")\n");
+            } else {
+                print_without_backslashes(articles[i].url);
+                printf("\n");
+            }
             continue;
         }
 
@@ -82,12 +90,18 @@ void print_result(action_t action, int mod_articles, article_t *articles,
         assert(inbuf_len == 0); // There are no bytes left to convert.
         *outbuf_end = '\0';
 
-        print_without_backslashes(outbuf);
-        printf("\n");
+        if (markdown) {
+            printf("[");
+            print_without_backslashes(outbuf);
+            printf("](");
+            print_without_backslashes(articles[i].url);
+            printf(")\n");
+        } else {
+            print_without_backslashes(outbuf);
+            printf("\n");
+        }
 
         free(outbuf);
     }
     iconv_close(cd);
 }
-
-

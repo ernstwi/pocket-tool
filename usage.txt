@@ -1,6 +1,12 @@
 Usage:
 
-    %1$s [--version] [--help] [--quiet] <command>
+    %1$s [--version] [--help] <command> [<options>]
+
+Options:
+
+    -q --quiet                 Don't print article list.
+
+    -m --markdown              Print articles as links in a Markdown list format.
 
 Commands:
 
