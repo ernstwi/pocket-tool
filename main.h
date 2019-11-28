@@ -1,17 +1,19 @@
-#define JSMN_PARENT_LINKS
 #include <assert.h>
 #include <curl/curl.h>
 #include <errno.h>
 #include <getopt.h>
 #include <iconv.h>
-#include <jsmn.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
+#define JSMN_PARENT_LINKS
+#define JSMN_HEADER
+#include <jsmn.h>
+
 #define ARTICLES_PER_REQUEST 100
-#define VERSION_NO "1.2.0"
+#define VERSION_NO "1.2.1"
 
 #define LOG(...) FILE *f = fopen("/var/tmp/pocket-tool_log.txt", "a"); fprintf(f, __VA_ARGS__); fclose(f);
 #define LOG_JSON(...) FILE *f = fopen("/var/tmp/pocket-tool_response.json", "a"); fprintf(f, __VA_ARGS__); fclose(f);

@@ -171,14 +171,8 @@ $ brew install ernstwi/tap/pocket-tool
 
 ## Install manually
 
-1. Clone this repo.
-2. Clone [zserge/jsmn](https://github.com/zserge/jsmn).
-3. `cd` into the jsmn directory.
-4. Run `make CFLAGS=-DJSMN_PARENT_LINKS`.
-5. Copy the files `jsmn.h` and `libjsmn.a` to the `pocket-tool` directory created in step 1.
-6. `cd` into `pocket-tool`.
-7. Run `make`.
-8. Run `make install` to move the built binary to `/usr/local/bin/pocket-tool`.
+`make` to build.  
+`make install` to move the built binary to `/usr/local/bin/pocket-tool`.
 
 ## Authentication
 
@@ -189,5 +183,3 @@ Before you can use `pocket-tool`, you must [create a Pocket consumer key](https:
 - [getopt.h](https://www.gnu.org/software/gnulib/manual/html_node/getopt_002eh.html)
 - [jsmn](https://github.com/zserge/jsmn)
 - [libcurl](https://curl.haxx.se/libcurl/)
-
-On macOS, the only one of these that doesn't come with the OS is jsmn.

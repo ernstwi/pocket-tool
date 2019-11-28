@@ -2,9 +2,9 @@ CC            = gcc
 CFLAGS        = -I.
 CFLAGS_DEBUG  = -g -O0 -D DEBUG
 CFLAGS_TEST   = -D TEST
-LDFLAGS       = -L. -lcurl -ljsmn -liconv
+LDFLAGS       = -L. -lcurl -liconv
 LDFLAGS_DEBUG = -fsanitize=address
-OBJ           = auth.o curl_callback.o filter.o io.o main.o pack.o pull.o push.o test.o util.o
+OBJ           = auth.o curl_callback.o filter.o io.o jsmn.o main.o pack.o pull.o push.o test.o util.o
 
 all: pocket-tool
 
