@@ -11,7 +11,7 @@ Archive each article tagged with both "ifttt" and "nyt", but not "politics":
 `pocket-tool archive -t ifttt -t nyt -T politics`
 
 Delete all articles added more than 4 days ago:  
-`date -v-4d +%Y-%m-%d | xargs -IX pocket-tool delete --before X`
+`pocket-tool delete --before $(date -v-4d +%Y-%m-%d)`
 
 Favorite all archived articles without the tag "ifttt":  
 `pocket-tool favorite --archived --without-tag ifttt`
